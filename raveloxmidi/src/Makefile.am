@@ -23,7 +23,8 @@ raveloxmidi_SOURCES = \
 	raveloxmidi_config.c \
 	daemon.c \
 	logging.c \
-	utils.c 
+	utils.c \
+        pi_utils.c	
 
 raveloxmidi_LDADD = @PTHREAD_LIBS@ ${AVAHI_LIBS}
 raveloxmidi_LDFLAGS = @PTHREAD_CFLAGS@

@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
 	logging_init();
 	logging_printf( LOGGING_INFO, "%s (%s)\n", PACKAGE, VERSION);
 
-	pi_gpio_init(void);
+	pi_gpio_init();
 
 	if( is_yes( config_get("run_as_daemon") ) )
 	{
