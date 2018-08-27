@@ -36,9 +36,10 @@
 #include "daemon.h"
 
 #include "logging.h"
-#include "config.h"
+#include "../config.h"
 
 static int running_as_daemon=0;
+void pi_gpio_init(void);
 
 int main(int argc, char *argv[])
 {
@@ -49,6 +50,8 @@ int main(int argc, char *argv[])
 
 	logging_init();
 	logging_printf( LOGGING_INFO, "%s (%s)\n", PACKAGE, VERSION);
+
+	pi_gpio_init(void);
 
 	if( is_yes( config_get("run_as_daemon") ) )
 	{

@@ -61,6 +61,7 @@ static int net_socket_shutdown;
 static int inbound_midi_fd = -1;
 
 static pthread_mutex_t shutdown_lock;
+void pi_handle( unsigned char *buffer, size_t len );
 
 int net_socket_create( unsigned int port )
 {
@@ -251,6 +252,8 @@ int net_socket_listener( void )
 						midi_payload_pack( midi_payload, &packed_payload, &packed_payload_len );
 						logging_printf(LOGGING_DEBUG, "packed_payload: buffer=%p,len=%u\n", packed_payload, packed_payload_len);
 						hex_dump( packed_payload, packed_payload_len );
+
+						pi_handle(packed_payload, packed_payload_len);
 
 						// Join the packed MIDI payload and the journal together
 						packed_rtp_payload = (unsigned char *)malloc( packed_payload_len + packed_journal_len );
