@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <wiringPi.h>
+#include <stdio.h>
 
 const int redPin = 26;
 const int greenPin = 19;
@@ -11,7 +12,6 @@ pi_gpio_init(void)
     pinMode(redPin, OUTPUT);
     pinMode(greenPin, OUTPUT);
     pinMode(bluePin, OUTPUT);
-
 }
 
 void handle_disarm(void)
@@ -19,6 +19,7 @@ void handle_disarm(void)
     digitalWrite(redPin, LOW);
     digitalWrite(greenPin, HIGH);
     digitalWrite(bluePin, LOW);
+    printf("Got Disarm!\n");
 }
 
 handle_arm(void)
@@ -26,6 +27,7 @@ handle_arm(void)
     digitalWrite(redPin, HIGH);
     digitalWrite(greenPin, LOW);
     digitalWrite(bluePin, LOW);
+    printf("Got Arm!\n");
 }
 
 void pi_handle( unsigned char *buffer, size_t len )
