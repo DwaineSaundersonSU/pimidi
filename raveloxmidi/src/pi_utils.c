@@ -32,7 +32,7 @@ void handle_record(void)
     printf("Got Record!\n");
 }
 
-handle_arm(void)
+void handle_arm(void)
 {
     if (rec_flag) {
         return;
@@ -44,7 +44,7 @@ handle_arm(void)
     printf("Got Arm!\n");
 }
 
-handle_cleanup(void)
+void handle_cleanup(void)
 {
     digitalWrite(redPin, LOW);
     digitalWrite(greenPin, LOW);
@@ -55,7 +55,7 @@ void pi_handle( unsigned char *buffer, size_t len )
 {
     if (len == 3 && buffer[0] == 0xb0 && buffer[1] == 0x2c) {
 
-        printf("Got Command %x\n", buffer[2]);
+        printf("Got Command %x\n", buffer[2]);g
 
         switch(buffer[2]) {
             case 0x47:
