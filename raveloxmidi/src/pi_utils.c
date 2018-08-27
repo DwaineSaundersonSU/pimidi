@@ -6,6 +6,8 @@ const int redPin = 26;
 const int greenPin = 19;
 const int bluePin = 13;
 
+int rec_flag = 0;
+
 pi_gpio_init(void)
 {
     wiringPiSetupGpio();
@@ -22,12 +24,31 @@ void handle_disarm(void)
     printf("Got Disarm!\n");
 }
 
-handle_arm(void)
+void handle_record(void)
 {
     digitalWrite(redPin, HIGH);
     digitalWrite(greenPin, LOW);
     digitalWrite(bluePin, LOW);
+    printf("Got Record!\n");
+}
+
+handle_arm(void)
+{
+    if (rec_flag) {
+        return;
+    }
+
+    digitalWrite(redPin, HIGH);
+    digitalWrite(greenPin, HIGH);
+    digitalWrite(bluePin, LOW);
     printf("Got Arm!\n");
+}
+
+handle_cleanup(void)
+{
+    digitalWrite(redPin, LOW);
+    digitalWrite(greenPin, LOW);
+    digitalWrite(bluePin, LOW);
 }
 
 void pi_handle( unsigned char *buffer, size_t len )
@@ -40,6 +61,11 @@ void pi_handle( unsigned char *buffer, size_t len )
 
             case 0x07:
                 handle_disarm();
+                break;
+
+            case 0x04:
+                rec_flag = 1;
+                handle_record();
                 break;
         }
     }

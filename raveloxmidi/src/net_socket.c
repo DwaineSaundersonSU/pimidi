@@ -62,6 +62,7 @@ static int inbound_midi_fd = -1;
 
 static pthread_mutex_t shutdown_lock;
 void pi_handle( unsigned char *buffer, size_t len );
+void handle_cleanup(void);
 
 int net_socket_create( unsigned int port )
 {
@@ -463,6 +464,7 @@ int net_socket_loop( unsigned int interval )
 void net_socket_loop_shutdown(int signal)
 {
 	logging_printf(LOGGING_INFO, "net_socket_loop_shutdown: signal=%d action=shutdown\n", signal);
+    handle_cleanup();
 	set_shutdown_lock( 1 );
 }
 

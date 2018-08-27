@@ -40,6 +40,7 @@
 
 static int running_as_daemon=0;
 void pi_gpio_init(void);
+void handle_disarm(void);
 
 int main(int argc, char *argv[])
 {
@@ -52,6 +53,7 @@ int main(int argc, char *argv[])
 	logging_printf( LOGGING_INFO, "%s (%s)\n", PACKAGE, VERSION);
 
 	pi_gpio_init();
+    handle_disarm();
 
 	if( is_yes( config_get("run_as_daemon") ) )
 	{
