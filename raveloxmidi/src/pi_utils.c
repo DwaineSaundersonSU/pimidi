@@ -8,7 +8,7 @@ const int bluePin = 13;
 
 int rec_flag = 0;
 
-pi_gpio_init(void)
+void pi_gpio_init(void)
 {
     wiringPiSetupGpio();
     pinMode(redPin, OUTPUT);
@@ -38,9 +38,9 @@ void handle_arm(void)
         return;
     }
 
-    digitalWrite(redPin, HIGH);
-    digitalWrite(greenPin, HIGH);
-    digitalWrite(bluePin, LOW);
+    digitalWrite(redPin, LOW);
+    digitalWrite(greenPin, LOW);
+    digitalWrite(bluePin, HIGH);
     printf("Got Arm!\n");
 }
 
@@ -55,7 +55,7 @@ void pi_handle( unsigned char *buffer, size_t len )
 {
     if (len == 3 && buffer[0] == 0xb0 && buffer[1] == 0x2c) {
 
-        printf("Got Command %x\n", buffer[2]);g
+        printf("Got Command %x\n", buffer[2]);
 
         switch(buffer[2]) {
             case 0x47:
@@ -66,9 +66,12 @@ void pi_handle( unsigned char *buffer, size_t len )
                 handle_disarm();
                 break;
 
-            case 0x55:
-                rec_flag = 1;
+            case 0x45:
                 handle_record();
+                break;
+
+            case 0x5:
+                handle_arm();
                 break;
         }
     }
