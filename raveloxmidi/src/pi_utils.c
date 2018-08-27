@@ -54,6 +54,9 @@ handle_cleanup(void)
 void pi_handle( unsigned char *buffer, size_t len )
 {
     if (len == 3 && buffer[0] == 0xb0 && buffer[1] == 0x2c) {
+
+        printf("Got Command %x\n", buffer[2]);
+
         switch(buffer[2]) {
             case 0x47:
                 handle_arm();
@@ -63,7 +66,7 @@ void pi_handle( unsigned char *buffer, size_t len )
                 handle_disarm();
                 break;
 
-            case 0x04:
+            case 0x55:
                 rec_flag = 1;
                 handle_record();
                 break;

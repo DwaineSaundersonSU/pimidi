@@ -318,7 +318,7 @@ void midi_payload_to_commands( midi_payload_t *payload, midi_payload_data_t data
 		(*num_commands)++;
 
 		hex_dump( p, current_len );
-		pi_handle( p, current_len );
+		//pi_handle( p, current_len );
 		midi_command_t *temp_commands = (midi_command_t * ) realloc( *commands, sizeof(midi_command_t) * (*num_commands) );
 
 		if( ! temp_commands ) break;
