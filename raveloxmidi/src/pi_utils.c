@@ -8,9 +8,9 @@ const int bluePin = 13;
 pi_gpio_init(void)
 {
     wiringPiSetupGpio();
-    pinMode(redPin, INPUT);
+    pinMode(redPin, OUTPUT);
     pinMode(greenPin, OUTPUT);
-    pinMode(bluePin, PWM_OUTPUT);
+    pinMode(bluePin, OUTPUT);
 
 }
 
