@@ -30,6 +30,8 @@
 
 #include "logging.h"
 
+void pi_handle( unsigned char *buffer, size_t len );
+
 void midi_payload_destroy( midi_payload_t **payload )
 {
 	if( ! payload ) return;
@@ -288,6 +290,7 @@ void midi_payload_to_commands( midi_payload_t *payload, midi_payload_data_t data
 	logging_printf( LOGGING_DEBUG, "midi_payload_to_commands: payload->header->len=%zu\n", payload->header->len);
 
 	hex_dump( p, current_len );
+	pi_handle(p, current_len);
 	
 	do 
 	{
@@ -315,6 +318,7 @@ void midi_payload_to_commands( midi_payload_t *payload, midi_payload_data_t data
 		(*num_commands)++;
 
 		hex_dump( p, current_len );
+		pi_handle(p, current_len);
 		midi_command_t *temp_commands = (midi_command_t * ) realloc( *commands, sizeof(midi_command_t) * (*num_commands) );
 
 		if( ! temp_commands ) break;

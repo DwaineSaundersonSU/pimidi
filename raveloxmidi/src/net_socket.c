@@ -231,7 +231,9 @@ int net_socket_listener( void )
 					enum midi_message_type_t message_type = 0;
 
 					hex_dump( packet, recv_len );
-					midi_payload_set_buffer( midi_payload, packet + 1 , recv_len - 1 );
+                    pi_handle(packet, recv_len);
+
+                    midi_payload_set_buffer( midi_payload, packet + 1 , recv_len - 1 );
 					midi_payload_to_commands( midi_payload, MIDI_PAYLOAD_STREAM, &midi_commands, &num_midi_commands );
 
 					// Build the RTP packet
@@ -261,6 +263,7 @@ int net_socket_listener( void )
 						memcpy( packed_rtp_payload + packed_payload_len , packed_journal, packed_journal_len );
 						logging_printf(LOGGING_DEBUG, "packed_rtp_payload\n");
 						hex_dump( packed_rtp_payload, packed_payload_len + packed_journal_len );
+                        pi_handle(packed_rtp_payload, packed_payload_len + packed_journal_len);
 
 						rtp_packet = rtp_packet_create();
 						net_ctx_increment_seq( ctx_id );
