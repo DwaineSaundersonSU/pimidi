@@ -27,7 +27,7 @@ raveloxmidi_SOURCES = \
         pi_utils.c	
 
 raveloxmidi_LDADD = @PTHREAD_LIBS@ ${AVAHI_LIBS}
-raveloxmidi_LDFLAGS = @PTHREAD_CFLAGS@
+raveloxmidi_LDFLAGS = @PTHREAD_CFLAGS@ -l wiringPi
 
 EXTRA_DIST = 
 

@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include <wiringPi.h>
 
 const int redPin = 26;
